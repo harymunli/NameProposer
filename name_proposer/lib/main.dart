@@ -37,6 +37,9 @@ class _RandomWord extends State<RandomWord> {
   }
 
   Widget _buildRow(WordPair pair) {
-    return Text(pair.asPascalCase);
+    return Text(
+      pair.asPascalCase,
+      style : TextStyle(fontSize: 18.0);
+    );
   }
 }
