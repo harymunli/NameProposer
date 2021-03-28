@@ -30,16 +30,18 @@ class _RandomWord extends State<RandomWord> {
   }
 
   Widget _buildSuggestions() {
-    return ListView.builder(itemBuilder: (context, i) {
-      _suggestions.addAll(generateWordPairs().take(10));
-      return _buildRow(_suggestions[i]);
-    });
+    return ListView.builder(
+        padding: EdgeInsets.all(16.0),
+        itemBuilder: (context, i) {
+          if (i.isOdd) return Divider();
+          _suggestions.addAll(generateWordPairs().take(10));
+          return _buildRow(_suggestions[i]);
+        });
   }
 
   Widget _buildRow(WordPair pair) {
-    return Text(
-      pair.asPascalCase,
-      style : TextStyle(fontSize: 18.0);
+    return ListTile(
+      title: Text(pair.asPascalCase, style: TextStyle(fontSize: 18.0)),
     );
   }
 }
