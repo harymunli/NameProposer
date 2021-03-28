@@ -19,7 +19,7 @@ class RandomWord extends StatefulWidget {
 
 class _RandomWord extends State<RandomWord> {
   final _suggestions = <WordPair>[];
-  final _saved = <WordPair>{};
+  var _saved = <WordPair>{};
   final _fontStyle = TextStyle(fontSize: 18.0);
   @override
   Widget build(BuildContext context) {
@@ -37,18 +37,19 @@ class _RandomWord extends State<RandomWord> {
   void _pushSaved() {
     Navigator.of(context)
         .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      // final tiles = _saved.map((WordPair pair) => ListTile(
-      //       title: Text(
-      //         pair.asPascalCase,
-      //         style: _fontStyle,
-      //       ),
-      //     ));
-
-      // final divided = ListTile.divideTiles(tiles: tiles).toList();
+      Iterator it = _saved.iterator;
+      List<Widget> tiles = <ListTile>[];
+      while (it.moveNext()) {
+        var tile =
+            ListTile(title: Text(it.current.toString(), style: _fontStyle));
+        tiles.add(tile);
+      }
 
       return Scaffold(
-        appBar: AppBar(title: Text('Saved Suggestions')),
-      );
+          appBar: AppBar(title: Text('Saved Suggestions')),
+          body: ListView(
+            children: tiles,
+          ));
     }));
   }
 
